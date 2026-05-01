@@ -1,37 +1,38 @@
 let cropper;
 
-document.getElementById('iamgeInput').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+document.getElementById('imageInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const imgElement = document.getelementById('cropTarget');
+    const imgElement = document.getElementById('cropTarget');
 
-  if (cropper) {
-    cropper.destroy();
-  }
+    if (cropper) {
+        cropper.destroy();
+    }
 
-  imgElement.src = URL.createObjectURL(file);
-  imgElement.stule.display = 'block';
+    imgElement.src = URL.createObjectURL(file);
+    imgElement.style.display = 'block';
 
-  imgElement.onload = function() {
-    cropper = new Cropper(imgElement, {
-      aspectRatio: 1,
-      viewMode: 1,
-      movable: true,
-      zoomable: true,
-      scalable: false,
-    });
-  
-    document.getElementById('cropBtn').style.display = 'block';
-  };
+    imgElement.onload = function() {
+        cropper = new Cropper(imgElement, {
+            aspectRatio: 1,
+            viewMode: 1,
+            movable: true,
+            zoomable: true,
+            scalable: false,
+        });
 
-  document.getElementById('croptBtn').addEventListener('click', function() {
+        document.getElementById('cropBtn').style.display = 'block';
+    };
+});
+
+document.getElementById('cropBtn').addEventListener('click', function() {
     const croppedCanvas = cropper.getCroppedCanvas({
-      width: 240,
-      height: 280,
+        width: 240,
+        height: 280,
     });
 
-    const preview = document.getelementById('preview');
+    const preview = document.getElementById('preview');
     preview.width = 240;
     preview.height = 280;
     const ctx = preview.getContext('2d');
@@ -39,4 +40,3 @@ document.getElementById('iamgeInput').addEventListener('change', function(e) {
 
     const imageData = ctx.getImageData(0, 0, 240, 280);
 });
-                                                  
